@@ -16,7 +16,7 @@ from rounds.models import Round
 from courses.forms import HoleForm
 from rounds.forms import RoundForm
 from courses.tables import CourseTable, HoleTable
-from scorecards.tables import ScoreCardTable, ScoreTable
+from .tables import ScoreCardTable, ScoreTable
 from rounds.tables import RoundTable
 
 # Render list of scorecards
@@ -28,9 +28,16 @@ def scorecards(request):
 # Details for a scorecard
 def scorecarddetails(request, pk):
     scorecard = Scorecard.objects.get(id = pk)
-    scores = ScoreTable(scorecard.score_set.all())
-    RequestConfig(request).configure(scores)
-    return render(request, 'scorecards/scorecarddetails.html', {'scores': scores, 'scorecard': scorecard})
+    scores = Score.objects.filter(scorecard = scorecard)
+    course = scorecard.course
+    holes = course.hole_set.all()
+
+    context = {'scores': scores, 
+               'scorecard': scorecard,
+               'holes': holes,
+
+               }
+    return render(request, 'scorecards/scorecarddetails.html', context)
 
 def select_round(request, pk):
     if request.method == "POST":
