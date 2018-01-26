@@ -48,7 +48,7 @@ class coursedelete(generic.DeleteView):
     template_name = 'courses/coursedelete.html'
     success_url = reverse_lazy('courses:index') # Go back to index view
 
-# Create a course detail overview, showing holes and such
+# Create a course detail overview, showing holes and rounds
 def coursedetails(request, pk):
     course = Course.objects.get(id=pk)
     holes = HoleTable(course.hole_set.all())
@@ -57,7 +57,7 @@ def coursedetails(request, pk):
                'course': course,
                'rounds': rounds,
                }
-    RequestConfig(request).configure(holes)
+    RequestConfig(request, paginate={'per_page': 10}).configure(holes)
     return render(request, 'courses/coursedetails.html', context)
 
 # When looking at coursedetails, user can add holes using this function. Checks if hole already exists so multiple holes doesnt get created
