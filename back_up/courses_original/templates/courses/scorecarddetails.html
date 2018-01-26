@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+    {% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Scorecard</title>
+
+	{% load render_table from django_tables2 %}
+
+</head>
+<body>
+
+	{% block content %}
+
+	<h2>Round at {{ scorecard.course.course_name }}, {{ scorecard.date_played }}</h2>
+
+	{% render_table scores %}
+
+	{% endblock %}
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    {% block javascript %}
+    <!-- Event listener for id_course dropdown -->
+    <script>
+        $(document).ready(function() {
+
+            $('#id_course').on( 'click', function() {
+                alert('Listener called');
+            });
+
+        });
+
+    </script>
+
+
+    {% endblock %}
+
+</head>
+<body>
+
+    {% block content %}
+
+    <h3>Create a new scorecard:</h3>
+
+    <hr />
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <input class="btn btn-primary" type="submit" value="Create!" />
+    </form>
+
+    {% endblock %}
+</body>
+</html>

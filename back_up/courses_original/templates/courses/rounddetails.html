@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+    {% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Round details</title>
+
+    {% load render_table from django_tables2 %}
+
+</head>
+<body>
+
+    {% block content %}
+
+    <h2>Details for round {{ round.name }}</h2>
+
+    <hr />
+
+    <h5>Course: {{ round.course }}</h5>
+
+    <hr />
+
+    <h5>Holes:</h5>
+
+    {% render_table hole_table %}
+
+    {% endblock %}
+</body>
+</html>

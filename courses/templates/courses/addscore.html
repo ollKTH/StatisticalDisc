@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+
+    <h3>Add scores for scorecard:</h3>
+    <p>Course: {{ scorecard.course }}</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {% for form in score_form %}
+
+        {{ form }}<br />
+
+        {% endfor %}
+
+        <input class="btn btn-primary" type="submit" value="Create!" />
+    </form>
+
+    {% endblock %}
+</body>
+</html>

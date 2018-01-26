@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+    {% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{ course.course_name }} details</title>
+
+    {% load render_table from django_tables2 %}
+
+</head>
+<body>
+
+    {% block content %}
+
+    <h2>Course details for {{ course.course_name }}</h2>
+
+    <div class="card card-body">
+        <h5><b>Information:</b></h5>
+        <br />
+        <h5>Total par: {{ course.course_par }}</h5>
+        <h5>Location: {{ course.course_location }}</h5>
+    </div>
+
+    {% render_table holes %}
+
+    <a class="btn btn-primary" href="addhole">Add a hole</a>
+    <a class="btn btn-primary" href="/rounds/{{ course.id }}/createround">Create round!</a>
+    <a class="btn btn-primary" href="/scorecards/{{ course.id }}/select_round">Create scorecard!</a>
+    <a class="btn btn-primary" href="coursedelete">Delete course!</a>
+
+    <br />
+    <br />
+
+    <h2>Rounds at {{ course.course_name }}</h2>
+
+    {% render_table rounds %}
+
+    {% endblock %}
+</body>
+</html>

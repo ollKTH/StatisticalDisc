@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+
+    <h2>Do you want to delete {{ round.name }}?</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+        <input class="btn btn-danger" type="submit" value="Yes!" /> <a href="/courses/coursedetails/{{ round.course.id }}" class="btn btn-success">No!</a>
+
+
+    </form>
+
+    {% endblock %}
+</body>
+</html>

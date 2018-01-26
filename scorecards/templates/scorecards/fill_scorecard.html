@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+
+    <h3>Scorecard for {{ round.name }} at {{ course.course_name }}</h3>
+
+    <form action="{% url 'fill_scorecard' %}" method="POST">
+        {% csrf_token %}
+
+        <!-- Style for table -->
+        <style scoped>
+            table, th, td {
+                border: groove;
+            }
+
+            input {
+                width: 50px;
+            }
+        </style>
+
+        {{ formset.management_form }}
+        {{ formset.non_form_errors.as_ul }}
+        <table id="formset" class="form">
+            <!-- Row for hole number -->
+            <tr>
+                <th>
+                    <b>Hole</b>
+                </th>
+                {% for hole in holes %}
+                <th>
+                    {{ hole.hole_number }}
+                </th>
+                {% endfor %}
+            </tr>
+            <!-- Row for hole par -->
+            <tr>
+                <td>
+                    <b>Par</b>
+                </td>
+                {% for hole in holes %}
+                <td>
+                    {{ hole.hole_par }}
+                </td>
+                {% endfor %}
+            </tr>
+            <!-- Row for Scoreforms -->
+            <tr>
+                <td>
+                    <b>Score</b>
+                </td>
+                {% for form in formset.forms %}
+                    {% for field in form.visible_fields %}
+                    <td>
+                        {{ field }}
+                    </td>
+                    {% endfor %}
+                    <!-- Do the id field? -->
+                    {{ form.id }}
+                {% endfor %}
+            </tr>
+        </table>
+
+        <input type="hidden" name="round" value="{{ round }}" />
+        <input type="hidden" name="course" value="{{ course }}"/>
+
+        <input class="btn btn-primary" type="submit" value="Submit!" style="margin-top: 10px; width: 100px"/>
+
+    </form>
+    
+    {% endblock %}
+</body>
+</html>

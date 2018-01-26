@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\courses",
+    "\\rounds",
+    "\\scorecards",
+    "\\scorecards\\templates",
+    "\\scorecards\\templates\\scorecards"
+  ],
+  "SelectedNode": "\\scorecards\\views.py",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,0 +1,12 @@
+﻿body {
+    font-family: Calibri
+}
+
+.even tr:hover {
+    background-color: aqua
+
+}
+
+.odd tr:hover {
+    background-color: burlywood
+}
