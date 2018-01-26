@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
     {% extends 'courses/base.html' %}
 
@@ -16,7 +16,65 @@
 
 	<h2>Round at {{ scorecard.course.course_name }}, {{ scorecard.date_played }}</h2>
 
-	{% render_table scores %}
+    <!-- Style for table -->
+    <style scoped>
+        table, th, td {
+            border: groove;
+        }
+
+        td, th {
+            width: 50px;
+            text-align: center;
+        }
+
+    </style>
+
+    <table>
+        <!-- Row for hole number -->
+        <tr>
+            <th>
+                <b>Hole</b>
+            </th>
+            {% for hole in holes %}
+            <th>
+                {{ hole.hole_number }}
+            </th>
+            {% endfor %}
+            <th>
+                Total
+            </th>
+        </tr>
+        <!-- Row for hole par -->
+        <tr>
+            <td>
+                <b>Par</b>
+            </td>
+            {% for hole in holes %}
+            <td>
+                {{ hole.hole_par }}
+            </td>
+            {% endfor %}
+            <!-- Column for total par -->
+            <td>
+                {{ scorecard.round.total_par }}
+            </td>
+        </tr>
+        <!-- Row to show score -->
+        <tr>
+            <td>
+                <b>Score</b>
+            </td>
+            {% for score in scores %}
+            <td>
+                {{ score.score }}
+            </td>
+            {% endfor %}
+            <!-- Column for total score -->
+            <td>
+                {{ scorecard.total_score }}
+            </td>
+        </tr>
+    </table>
 
 	{% endblock %}
 </body>
