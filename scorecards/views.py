@@ -30,7 +30,7 @@ def scorecarddetails(request, pk):
     scorecard = Scorecard.objects.get(id = pk)
     scores = Score.objects.filter(scorecard = scorecard)
     course = scorecard.course
-    holes = course.hole_set.all()
+    holes = scorecard.round.holes.all()
 
     context = {'scores': scores, 
                'scorecard': scorecard,
@@ -39,6 +39,7 @@ def scorecarddetails(request, pk):
                }
     return render(request, 'scorecards/scorecarddetails.html', context)
 
+# Pick round for scorecard creation
 def select_round(request, pk):
     if request.method == "POST":
         # THIS PART IS NOT USED, REDIRECTS TO FILL_SCORECARD WITH GET #
@@ -52,8 +53,8 @@ def select_round(request, pk):
         holes = round.holes.all()
 
         # Create Formset
-        ScoreFormSet = modelformset_factory(Score, form = ScoreForm, fields = ('score',), extra = 0)
-        score_formset = ScoreFormSet(queryset = holes)
+        ScoreFormSet = formset_factory(ScoreForm, extra = len(round.holes.all()))
+        score_formset = ScoreFormSet()
 
         context = {
             'round': round,
@@ -72,39 +73,43 @@ def select_round(request, pk):
             }
         return render(request, 'scorecards/select_round.html', context)
 
+# Fill out scorecard with POST data
 def fill_scorecard(request):
-    ScoreFormSet = modelformset_factory(Score, form = ScoreForm, fields = ('score',), extra = 0)
+    ScoreFormSet = formset_factory(ScoreForm)
     if request.method == "POST":
+        # Create formset from the data available in the POST
         formset = ScoreFormSet(request.POST)
-        course = Course.objects.get(course_name = request.POST.get('course')) # Get course
-        round = Round.objects.get(name = request.POST.get('round'), course = course) # Get round
-        holes = round.holes.all()
+        if formset.is_valid():
+            course = Course.objects.get(course_name = request.POST.get('course')) # Get course
+            round = Round.objects.get(name = request.POST.get('round'), course = course) # Get round
+            holes = round.holes.all()
 
-        i = 0
-        total_score = 0
-        scores = []
+            i = 0
+            total_score = 0
+            scores = []
 
-        # Loop over all forms in formset
-        for form in formset:
-            score = form.save(commit=False)
-            score.hole = holes[i]
-            total_score += score.score
-            i += 1
-            scores.append(score)
+            # Loop over all forms in formset
+            for form in formset:
+                score = Score()
+                score.score = form.cleaned_data.get('score')
+                score.hole = holes[i]
+                total_score += score.score
+                i += 1
+                scores.append(score)
 
-        # Create a scorecard object without scores
-        scorecard = Scorecard(round = round, course = course, total_score = total_score, date_played = datetime.date.today(), noOfHoles = i)
-        scorecard.save()
+            # Create a scorecard object without scores
+            scorecard = Scorecard(round = round, course = course, total_score = total_score, date_played = datetime.date.today(), noOfHoles = i)
+            scorecard.save()
 
-        # Assign each score to the scorecard
-        for score in scores:
-            score.scorecard = scorecard
-            score.save()
+            # Assign each score to the scorecard
+            for score in scores:
+                score.scorecard = scorecard
+                score.save()
 
-        # For now just pass to index page
-        courses = CourseTable(Course.objects.all())
-        RequestConfig(request).configure(courses)
-        return render(request, 'courses/index.html', {'courses': courses})
+            # For now just pass to index page
+            courses = CourseTable(Course.objects.all())
+            RequestConfig(request).configure(courses)
+            return render(request, 'courses/index.html', {'courses': courses})
     else:
         course = request.POST.get('course')
         round_name = request.POST.get('selected_round') # Why does this return a string and not a Round object?
@@ -115,8 +120,8 @@ def fill_scorecard(request):
         holes = round.holes.all()
 
         # Create Formset
-        ScoreFormSet = modelformset_factory(Score, form = ScoreForm, fields = ('score',), extra = 0)
-        score_formset = ScoreFormSet(queryset = holes)
+        ScoreFormSet = formset_factory(ScoreForm, fields = ('score',))
+        score_formset = ScoreFormSet()
 
         context = {
             'round': round,
