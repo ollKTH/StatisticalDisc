@@ -29,7 +29,6 @@
         </style>
 
         {{ formset.management_form }}
-        {{ formset.non_form_errors.as_ul }}
         <table id="formset" class="form">
             <!-- Row for hole number -->
             <tr>
@@ -64,8 +63,10 @@
                         {{ field }}
                     </td>
                     {% endfor %}
-                    <!-- Do the id field? -->
-                    {{ form.id }}
+                    <!-- For id form -->
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
                 {% endfor %}
             </tr>
         </table>
