@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#send', function () {
+                $('#submit').val(data)
+                document.forms["myForm"].submit();
+            })
+        })
+    </script>
+
+
+    {% block content %}
+
+    <h3>Select course:</h3>
+
+    <form action="." method="POST">
+        {% csrf_token %}
+
+        <select name="selected_course">
+            {% for course in courses %}
+            <option value="{{ course }}">{{ course.course_name }}</option>
+            {% endfor %}
+        </select>
+
+        <br />
+
+        <input class="btn btn-primary" type="submit" value="Select round!" style="margin-top: 10px"/>
+
+    </form>
+    
+    {% endblock %}
+</body>
+</html>
