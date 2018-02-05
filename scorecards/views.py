@@ -39,6 +39,19 @@ def scorecarddetails(request, pk):
                }
     return render(request, 'scorecards/scorecarddetails.html', context)
 
+# Creating a scorecard without going from a course detailview, first #
+# select course, then round #
+def select_course(request):
+    if request.method == 'POST':
+        course_name = request.POST.get('selected_course')
+        course = Course.objects.get(course_name = course_name)
+        pk = course.pk
+        return redirect('select_round', pk = pk)
+    else:
+        courses = Course.objects.all()
+        return render(request, 'scorecards/select_course.html', {'courses': courses})
+
+
 # Pick round for scorecard creation
 def select_round(request, pk):
     if request.method == "POST":
