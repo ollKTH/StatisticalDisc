@@ -13,6 +13,7 @@ class CourseTable(tables.Table):
         model = Course
         template = 'django_tables2/bootstrap.html'
         exclude = ('id')
+        attrs = {'class': 'course_table'}
 
 
 class HoleTable(tables.Table):

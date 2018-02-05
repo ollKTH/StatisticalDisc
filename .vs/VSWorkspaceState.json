@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\courses",
-    "\\scorecards",
-    "\\scorecards\\templates",
+    "\\courses\\static",
+    "\\courses\\static\\bootstrap",
+    "\\courses\\templates",
+    "\\courses\\templates\\courses",
     "\\scorecards\\templates\\scorecards"
   ],
-  "SelectedNode": "\\scorecards\\views.py",
+  "SelectedNode": "\\courses\\static\\bootstrap\\css",
   "PreviewInSolutionExplorer": false
 }
