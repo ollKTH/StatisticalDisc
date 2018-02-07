@@ -1,0 +1,45 @@
+.course_table {
+
+}
+
+.course_table tr {
+    height: 50px;
+}
+
+.course_table td {
+
+}
+
+.course_par.orderable {
+    width: 150px;
+}
+
+.course_name.orderable {
+    min-width: 300px;
+}
+
+.course_location.orderable {
+    min-width: 300px;
+}
+
+.odd {
+    background-color: lightgray;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: black;
+}
+
+.btn-primary {
+    background: cadetblue;
+    border: 0 none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Rubik', sans-serif;
+}
+
+.footer {
+    position: page;
+    bottom: 0;
+}

@@ -14,29 +14,50 @@
 
     {% block content %}
 
-    <h2>Course details for {{ course.course_name }}</h2>
+    <div class="row">
+        <div class="col-3">
+            <div class="row">
+                <div class="col">
+                    <!-- Course information card -->
+                    <div class="card card-body">
+                        <h2 class="card-title">{{ course.course_name }}</h2>
+                        <h5><b>Information:</b></h5>
+                        <br />
+                        <h5>Total par: {{ course.course_par }}</h5>
+                        <h5>Location: {{ course.course_location }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="padding-top: 10px">
+                    <!-- Menu for course -->
+                    <div class="card card-body">
+                        <h4 class="card-title">Menu:</h4>
+                        <a class="btn btn-primary" href="addhole">Add a hole</a><hr />
+                        <a class="btn btn-primary" href="/rounds/{{ course.id }}/createround">Create round!</a><hr />
+                        <a class="btn btn-primary" href="/scorecards/{{ course.id }}/select_round">Create scorecard!</a><hr />
+                        <a class="btn btn-primary" href="coursedelete">Delete course!</a><hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-5" style="padding-left: 10px">
+            <!-- Hole list -->
+            <div class="card card-body">
+                <h2>Holes</h2>
 
-    <div class="card card-body">
-        <h5><b>Information:</b></h5>
-        <br />
-        <h5>Total par: {{ course.course_par }}</h5>
-        <h5>Location: {{ course.course_location }}</h5>
+                {% render_table holes %}
+            </div>
+        </div>
+        <div class="col-4">
+            <!-- Round list -->
+            <div class="card card-body">
+                <h2>Rounds</h2>
+
+                {% render_table rounds %}
+            </div> 
+        </div>
     </div>
-
-    {% render_table holes %}
-
-    <a class="btn btn-primary" href="addhole">Add a hole</a>
-    <a class="btn btn-primary" href="/rounds/{{ course.id }}/createround">Create round!</a>
-    <a class="btn btn-primary" href="/scorecards/{{ course.id }}/select_round">Create scorecard!</a>
-    <a class="btn btn-primary" href="coursedelete">Delete course!</a>
-
-    <br />
-    <br />
-
-    <h2>Rounds at {{ course.course_name }}</h2>
-
-    {% render_table rounds %}
-
     {% endblock %}
 </body>
 </html>

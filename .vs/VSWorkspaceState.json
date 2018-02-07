@@ -1,13 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\courses",
-    "\\courses\\static",
-    "\\courses\\static\\bootstrap",
-    "\\courses\\templates",
     "\\courses\\templates\\courses",
-    "\\scorecards\\templates\\scorecards"
+    "\\Static\\static_root\\bootstrap\\css",
+    "\\Static\\static_root\\bootstrap\\fonts",
+    "\\Static\\static_root\\bootstrap\\js"
   ],
-  "SelectedNode": "\\courses\\static\\bootstrap\\css",
+  "SelectedNode": "\\Static",
   "PreviewInSolutionExplorer": false
 }
