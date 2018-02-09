@@ -1,25 +1,5 @@
-.course_table {
-
-}
-
 .course_table tr {
     height: 50px;
-}
-
-.course_table td {
-
-}
-
-.course_par.orderable {
-    width: 150px;
-}
-
-.course_name.orderable {
-    min-width: 300px;
-}
-
-.course_location.orderable {
-    min-width: 300px;
 }
 
 .odd {

@@ -14,22 +14,64 @@
 
     {% block content %}
 
-    <h2>Details for round {{ round.name }}</h2>
+    <div class="row">
+        <div class="col-4">
+            <!-- Details -->
+            <div class="row">
+                <div class="col">
+                    <div class="card card-body">
+                        <h2 class="card-title">Details for round {{ round.name }}</h2>
 
-    <hr />
+                        <hr />
 
-    <h5>Course: {{ round.course }}</h5>
+                        <h5>Course: {{ round.course }}</h5>
 
-    <hr />
+                    </div>
+                </div>
+            </div>
+            <!-- Menu -->
+            <div class="row">
+                <div class="col" style="padding-top: 10px">
+                    <div class="card card-body">
+                        <h4>Menu</h4>
 
-    <h5>Holes:</h5>
+                        <a class="btn btn-primary" href="rounddelete">Delete round!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {% render_table hole_table %}
+        <!-- Holes -->
+        <div class="col-5">
+            <div class="card card-body">
+                <h5>Holes:</h5>
 
-    <hr />
+                {% render_table hole_table %}
 
-    <a class="btn btn-primary" href="rounddelete">Delete round!</a>
+            </div>
+        </div>
+        <!-- Statistics section-->
+        <div class="col-3">
+            <div class="row">
+                <div class="col">
+                    <div class="card card-body">
+                        <h4>User statistics</h4>
 
+                        <p>Coming soon!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col" style="padding-top: 10px">
+                    <div class="card card-body">
+                        <h4>General statistics</h4>
+
+                        <p>Coming soon!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
     {% endblock %}
 </body>
 </html>
