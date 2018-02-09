@@ -13,6 +13,8 @@
 
     <h3>Scorecard for {{ round.name }} at {{ course.course_name }}</h3>
 
+    <hr />
+
     <form action="{% url 'fill_scorecard' %}" method="POST">
         {% csrf_token %}
 
