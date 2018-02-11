@@ -34,13 +34,18 @@ INSTALLED_APPS = [
     'courses.apps.CoursesConfig',
     'rounds.apps.RoundsConfig',
     'scorecards.apps.ScorecardsConfig',
+    'users.apps.UsersConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'django_tables2',
+    'widget_tweaks',
+
 ]
 
 MIDDLEWARE = [
