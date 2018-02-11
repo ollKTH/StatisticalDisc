@@ -27,4 +27,7 @@ urlpatterns = [
     url(r'^scorecards/', include('scorecards.urls')),
 
     url(r'^admin/', admin.site.urls),
+
+    url(r'^users/', include('users.urls')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
