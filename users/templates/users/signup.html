@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card card-body">
+
+                <h2>Sign up for Statistical Disc!</h2>
+
+                {% load widget_tweaks %}
+
+                <form method="post" novalidate>
+                    {% csrf_token %}
+
+                    <!-- Display non-field related errors -->
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger" role="alert">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <!-- Render each form -->
+                    {% for field in form %}
+                    <div class="form-group">
+
+                        <!-- Render tag for the field -->
+                        {{ field.label_tag }}
+                        
+                        <!-- If form have data = it is bound, in that case -> render error for data in this form -->
+                        {% if form.is_bound %}
+                            {% if field.errors %}
+                                {% render_field field class="form-control is-invalid" %}
+                                {% for error in field.errors %}
+                                <div class="invalid-feedback">
+                                    {{ error }}
+                                </div>
+                                {% endfor %}
+                            <!-- If this particular field is valid, but form is bound -> render green border -->
+                            {% else %}
+                                {% render_field field class="form-control is-valid" %}
+                            {% endif %}
+                        {% else %}
+                            {% render_field field class="form-control" %}
+                        {% endif %}
+
+                        
+                        <!-- Render field help text -->
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">
+                            {{ field.help_text|safe }}
+                        </small>
+                        {% endif %}
+
+                        
+
+                    </div>
+
+                    {% endfor %}
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 200px;">Create an account</button>
+                </form>
+                
+
+            </div>
+        </div>
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>
