@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+{% extends 'courses/base.html' %}
+
+<head>
+
+</head>
+
+<body>
+
+    {% block content %}
+    
+    <div class="row">
+        <!-- 1st card to try stuff in -->
+        <div class="col-3">
+            <div class="card card-body">
+                <p>If you click on me, I will disappear.</p>
+                <p>Click me away!</p>
+                <p>Click me too!</p>
+            </div>
+        </div>
+        <!-- 2nd card to try stuff in -->
+        <div class="col-3">
+            <div class="card card-body">
+                <h2>JavaScript in Head</h2>
+
+                <p id="demo">A Paragraph.</p>
+
+                <button type="button" onclick="myFunction()">Try it</button>
+            </div>
+        </div>
+        <!-- 3rd card to try stuff in -->
+        <div class="col-3">
+            <div class="card card-body">
+                <h2>JavaScript in Head</h2>
+
+                <p id="demo1">A Paragraph.</p>
+
+                <button type="button" onclick="popupFunction()">Try it</button>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+    {% block scripts %}
+
+    <!-- Script for 1st card -->
+    <script>
+    $(document).ready(function () {
+        $("p").click(function () {
+            $(this).hide();
+        });
+    });
+    </script>
+
+    <!-- Script for 2nd card -->
+    <script>
+        function myFunction() {
+            document.getElementById("demo").innerHTML = "Paragraph changed.";
+        }
+    </script>
+
+    <!-- Script for 3rd card -->
+    <script>
+        function popupFunction() {
+            window.alert('Hello!')
+        }
+    </script>
+
+    {% endblock %}
+
+</body>
+</html>

@@ -76,34 +76,40 @@
             <div class="col-5">
                 <!-- Course table -->
                 <div class="row">
-                    <div class="card card-body">
-                        <h3>Courses</h3>
+                    <div class="col">
+                        <div class="card card-body">
+                            <h3>Courses</h3>
 
-                        {% render_table courses%}
+                            {% render_table courses%}
 
-                        <hr />
+                            <hr />
 
+                        </div>
                     </div>
                 </div>
                 <!-- Latest Scorecards(when user authenticated) -->
                 <div class="row" style="padding-top: 10px">
-                    <div class="card card-body">
-                        <h3 class="card-title">Latest scorecards</h3>
-                        <p>Coming soon! To be shown when user is logged in.</p>
+                    <div class="col">
+                        <div class="card card-body">
+                            <h3 class="card-title">Latest scorecards</h3>
+                            <p>Coming soon! To be shown when user is logged in.</p>
+                        </div>
                     </div>
                 </div>
                 <!-- My TODO list -->
                 <div class="row" style="padding-top: 10px">
-                    <div class="card card-body" style="background-color: aquamarine; ">
-                        <h6># TODO : </h6>
+                    <div class="col">
+                        <div class="card card-body" style="background-color: aquamarine; ">
+                            <h6># TODO : </h6>
 
-                        <ul>
-                            <li>Remove course creation</li>
-                            <li>Add users and connect scorecard to user</li>
-                            <li>Redesign all pages(except coursedetails and index)</li>
-                            <li>Add statistics for course/rounds, played cards on that round/course and so on</li>
-                            <li>Average score on each hole object</li>
-                        </ul>
+                            <ul>
+                                <li>Remove course creation</li>
+                                <li>Add users and connect scorecard to user</li>
+                                <li>Redesign all pages(except coursedetails and index)</li>
+                                <li>Add statistics for course/rounds, played cards on that round/course and so on</li>
+                                <li>Average score on each hole object</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

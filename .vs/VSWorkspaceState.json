@@ -1,14 +1,11 @@
 {
   "ExpandedNodes": [
     "",
+    "\\courses",
+    "\\courses\\templates",
     "\\courses\\templates\\courses",
-    "\\rounds\\templates",
-    "\\scorecards\\templates",
-    "\\Static",
-    "\\Static\\static_dirs",
-    "\\Static\\static_dirs\\courses",
-    "\\StatiDisc"
+    "\\courses\\templates\\courses\\Javascript_test"
   ],
-  "SelectedNode": "\\scorecards",
+  "SelectedNode": "\\courses\\templates\\courses\\base.html",
   "PreviewInSolutionExplorer": false
 }

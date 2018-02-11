@@ -119,3 +119,5 @@ def courseoverview(request):
     RequestConfig(request).configure(table)
     return render(request, 'courses/courseoverview.html', {'table': table})
     
+def javascript_test_page(request):
+    return render(request, 'courses/javascript_test/javascript_test_page.html')

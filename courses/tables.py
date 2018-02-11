@@ -4,8 +4,6 @@ from django_tables2.utils import A
 from .models import Hole, Course
 from rounds.models import Round
 
-# TODO : Implement some styling highlightning the selected row from these tables
-
 class CourseTable(tables.Table):
     course_name = tables.LinkColumn('courses:coursedetails', args=[A('pk')])
 
@@ -13,7 +11,7 @@ class CourseTable(tables.Table):
         model = Course
         template = 'django_tables2/bootstrap.html'
         exclude = ('id')
-        attrs = {'class': 'course_table'}
+        #attrs = {'class': 'course_table'}
 
 
 class HoleTable(tables.Table):
