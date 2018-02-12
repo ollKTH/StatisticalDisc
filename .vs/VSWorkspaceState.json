@@ -4,7 +4,10 @@
     "\\courses",
     "\\courses\\templates",
     "\\courses\\templates\\courses",
-    "\\courses\\templates\\courses\\Javascript_test"
+    "\\courses\\templates\\courses\\Javascript_test",
+    "\\scorecards\\templates",
+    "\\StatiDisc",
+    "\\users"
   ],
   "SelectedNode": "\\courses\\templates\\courses\\base.html",
   "PreviewInSolutionExplorer": false
