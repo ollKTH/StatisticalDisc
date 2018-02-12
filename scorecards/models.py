@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 from courses.models import Course, Hole
 from rounds.models import Round
@@ -14,6 +15,7 @@ class Scorecard(models.Model):
     date_played = models.DateField(default=date.today, null=True) # Date the scorecard was created
     noOfHoles = models.PositiveIntegerField(null = True) # Number of holes played on the card
     total_score = models.PositiveIntegerField(null = True) # Sum of all scores for a scorecard, can be set via get_total_score
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True) # Owner/owners of scorecard
 
     def get_absolute_url(self):
         return reverse('scorecards:scorecards')
