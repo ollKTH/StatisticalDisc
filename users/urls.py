@@ -1,4 +1,5 @@
 from django.conf.urls import url
+from django.contrib.auth import views as auth_views
 
 from . import views
 
@@ -12,6 +13,7 @@ urlpatterns = [
     url(r'^auth_user', views.auth_user, name='auth_user'),
 
     # users/auth_user_logout
-    url(r'^auth_user_logout', views.auth_user_logout, name='auth_user_logout')
+    url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+
 
     ]
