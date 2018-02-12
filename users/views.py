@@ -66,11 +66,3 @@ def auth_user(request):
             raise NotImplementedError
     else:
         raise NotImplementedError
-
-def auth_user_logout(request):
-    logout(request)
-    
-    # Redirect user to start page
-    courses = CourseTable(Course.objects.all())
-    RequestConfig(request).configure(courses)
-    return render(request, 'courses/index.html', {'courses': courses})
