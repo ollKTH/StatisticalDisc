@@ -42,49 +42,57 @@ def scorecarddetails(request, pk):
 # Creating a scorecard without going from a course detailview, first #
 # select course, then round #
 def select_course(request):
-    if request.method == 'POST':
-        course_name = request.POST.get('selected_course')
-        course = Course.objects.get(course_name = course_name)
-        pk = course.pk
-        return redirect('select_round', pk = pk)
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            course_name = request.POST.get('selected_course')
+            course = Course.objects.get(course_name = course_name)
+            pk = course.pk
+            return redirect('select_round', pk = pk)
+        else:
+            courses = Course.objects.all()
+            return render(request, 'scorecards/select_course.html', {'courses': courses})
     else:
-        courses = Course.objects.all()
-        return render(request, 'scorecards/select_course.html', {'courses': courses})
+        error = 'You have to log in before creating a scorecard!'
+        return render(request, 'scorecards/error.html', {'error': error})
 
 
 # Pick round for scorecard creation
 def select_round(request, pk):
-    if request.method == "POST":
-        # THIS PART IS NOT USED, REDIRECTS TO FILL_SCORECARD WITH GET #
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            # THIS PART IS NOT USED, REDIRECTS TO FILL_SCORECARD WITH GET #
 
-        course = request.POST.get('course')
-        round_name = request.POST.get('selected_round') # Why does this return a string and not a Round object?
+            course = request.POST.get('course')
+            round_name = request.POST.get('selected_round') # Why does this return a string and not a Round object?
 
-        # Get round and course
-        course = Course.objects.get(course_name=course)
-        round = Round.objects.get(name=round_name, course = course) # Okay get the actual round
-        holes = round.holes.all()
+            # Get round and course
+            course = Course.objects.get(course_name=course)
+            round = Round.objects.get(name=round_name, course = course) # Okay get the actual round
+            holes = round.holes.all()
 
-        # Create Formset
-        ScoreFormSet = formset_factory(ScoreForm, extra = len(round.holes.all()))
-        score_formset = ScoreFormSet()
+            # Create Formset
+            ScoreFormSet = formset_factory(ScoreForm, extra = len(round.holes.all()))
+            score_formset = ScoreFormSet()
 
-        context = {
-            'round': round,
-            'course': course,
-            'formset': score_formset,
-            'holes': holes,
-            }
+            context = {
+                'round': round,
+                'course': course,
+                'formset': score_formset,
+                'holes': holes,
+                }
         
-        return render(request, 'scorecards/fill_scorecard.html', context)
+            return render(request, 'scorecards/fill_scorecard.html', context)
+        else:
+            course = Course.objects.get(id = pk)
+            rounds = course.round_set.all() # Get rounds for course
+            context = {
+                'rounds': rounds,
+                'course': course
+                }
+            return render(request, 'scorecards/select_round.html', context)
     else:
-        course = Course.objects.get(id = pk)
-        rounds = course.round_set.all() # Get rounds for course
-        context = {
-            'rounds': rounds,
-            'course': course
-            }
-        return render(request, 'scorecards/select_round.html', context)
+        error = 'You have to log in before creating a scorecard!'
+        return render(request, 'scorecards/error.html', {'error': error})
 
 # Fill out scorecard with POST data
 def fill_scorecard(request):
