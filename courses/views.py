@@ -12,7 +12,7 @@ from rounds.models import Round
 from .forms import HoleForm
 from rounds.forms import RoundForm
 from .tables import CourseTable, HoleTable
-from scorecards.tables import ScoreCardTable, ScoreTable
+from scorecards.tables import ScoreCardTable, ScoreTable, ScoreCardTableMini
 from rounds.tables import RoundTable
 
 # TODO:
@@ -22,7 +22,24 @@ from rounds.tables import RoundTable
 def index(request):
     courses = CourseTable(Course.objects.all())
     RequestConfig(request).configure(courses)
-    return render(request, 'courses/index.html', {'courses': courses})
+
+    if request.user.is_authenticated:
+        user = request.user
+
+        noOfRounds = user.profile.get_no_of_rounds()
+        scorecards = user.scorecard_set.order_by('date_played')[0:4]
+
+        recent_scorecards = ScoreCardTableMini(scorecards)
+        RequestConfig(request).configure(recent_scorecards)
+
+        context = {'courses': courses, 
+                   'noOfRounds': noOfRounds,
+                   'recent_scorecards': recent_scorecards,
+                   }
+
+        return render(request, 'courses/index.html', context)
+    else:
+        return render(request, 'courses/index.html', {'courses': courses})
 
 # Rewritten course creator using Create-template out of Django
 class coursecreate(generic.CreateView):
@@ -120,4 +137,4 @@ def courseoverview(request):
     return render(request, 'courses/courseoverview.html', {'table': table})
     
 def javascript_test_page(request):
-    return render(request, 'courses/javascript_test/javascript_test_page.html')
+    return render(request, 'courses/Javascript_test/javascript_test_page.html')
