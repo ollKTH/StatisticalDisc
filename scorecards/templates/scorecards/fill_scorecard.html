@@ -15,7 +15,7 @@
 
     <hr />
 
-    <form action="{% url 'fill_scorecard' %}" method="POST">
+    <form action="{% url 'scorecards:fill_scorecard' %}" method="POST">
         {% csrf_token %}
 
         <!-- Style for table -->
