@@ -3,12 +3,8 @@
     "",
     "\\courses",
     "\\courses\\templates",
-    "\\courses\\templates\\courses",
-    "\\courses\\templates\\courses\\Javascript_test",
-    "\\scorecards\\templates",
-    "\\StatiDisc",
-    "\\users"
+    "\\courses\\templates\\courses"
   ],
-  "SelectedNode": "\\courses\\templates\\courses\\base.html",
+  "SelectedNode": "\\courses\\templates\\courses\\index.html",
   "PreviewInSolutionExplorer": false
 }

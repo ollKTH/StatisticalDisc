@@ -1,11 +1,3 @@
-.course_table tr {
-    height: 50px;
-}
-
-.course_table {
-    width: inherit;
-}
-
 .odd {
     background-color: lightgray;
 }
