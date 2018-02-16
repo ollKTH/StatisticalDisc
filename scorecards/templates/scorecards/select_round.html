@@ -1,22 +1,16 @@
 ﻿<!DOCTYPE html>
 
 {% extends 'courses/base.html' %}
+{% load static %}
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Round select</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'scorecards/style.css' %}">
 </head>
 <body>
-    <script>
-        $(document).ready(function () {
-            $(document).on('click', '#send', function () {
-                $('#submit').val(data)
-                document.forms["myForm"].submit();
-            })
-        })
-    </script>
-
 
     {% block content %}
 
@@ -24,22 +18,24 @@
 
     <hr />
 
-    <form action="." method="POST">
-        {% csrf_token %}
+    <div class="row">
+        {% for round in rounds %}
+        <!-- Print card for each round -->
+        <div class="col-sm-2">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="card card-body" id="round_card">
+                    <h4 class="card-title">{{ round.name }}</h4>
+                    <p>Par: {{ round.total_par }}</p>
+                    <input type="hidden" name="selected_round" value="{{ round }}" />
+                    <input type="hidden" name="course" value="{{ course }}" />
 
-        <select name="selected_round">
-            {% for round in rounds %}
-            <option value="{{ round }}">{{ round.name }}</option>
-            {% endfor %}
-        </select>
-
-        <input type="hidden" name="course" value="{{ course }}"/>
-
-        <br />
-
-        <input class="btn btn-primary" type="submit" value="Create!" style="margin-top: 10px"/>
-
-    </form>
+                    <input class="btn btn-primary" type="submit" value="Select" />
+                </div>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
     
     {% endblock %}
 </body>
