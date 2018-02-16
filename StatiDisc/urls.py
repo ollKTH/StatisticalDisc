@@ -20,14 +20,14 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    url(r'^courses/', include('courses.urls')),
+    url(r'^courses/', include('courses.urls', namespace='courses')),
 
-    url(r'^rounds/', include('rounds.urls')),
+    url(r'^rounds/', include('rounds.urls', namespace='rounds')),
 
-    url(r'^scorecards/', include('scorecards.urls')),
+    url(r'^scorecards/', include('scorecards.urls', namespace='scorecards')),
 
     url(r'^admin/', admin.site.urls),
 
-    url(r'^users/', include('users.urls')),
+    url(r'^users/', include('users.urls', namespace='users')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
