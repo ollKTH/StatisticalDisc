@@ -27,33 +27,31 @@
                     <a class="nav-link" href="/courses">Home<span class="sr-only">(current)</span></a>
                 </li>
                 <!-- Courses dropdown menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Courses
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'courses:courseoverview' %}">
+                        Browse courses
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/courses/courseoverview">Overview</a>
-                        <a class="dropdown-item" href="/courses/coursecreate">Create course</a>
-                    </div>
                 </li>
                 <!-- Scorecard dropdown menu -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Scorecards
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/scorecards">Overview</a>
-                        <a class="dropdown-item" href="/scorecards/select_course">Create card</a>
-                    </div>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Scorecards
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'scorecards:scorecards' %}">Overview</a>
+                            <a class="dropdown-item" href="{% url 'scorecards:select_course' %}">Create card</a>
+                        </div>
+                    </li>
+                {% endif %}
                 <!-- Test dropdown menu -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Tests
+                        Test
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">JavaScript</a>
-                        <a class="dropdown-item disabled" href="#">Leaflet</a>
+                        <a class="dropdown-item" href="{% url 'courses:javascript-test-page' %}">JavaScript</a>
+                        <a class="dropdown-item" href="#">Leaflet</a>
                     </div>
                 </li>
                 <!-- Some other links -->
