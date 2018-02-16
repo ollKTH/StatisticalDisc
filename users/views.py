@@ -16,7 +16,7 @@ from rounds.models import Round
 from courses.forms import HoleForm
 from rounds.forms import RoundForm
 from courses.tables import CourseTable, HoleTable
-from scorecards.tables import ScoreCardTable, ScoreTable
+from scorecards.tables import ScoreCardTable, ScoreTable, ScoreCardTableMini
 from rounds.tables import RoundTable
 
 # Lets user sign up and create an account
@@ -28,10 +28,21 @@ def signup(request):
             user = form.save()
             login(request, user) # Manual authentication of user
             
-            # Redirect to index page
+            # Redirect user to start page
             courses = CourseTable(Course.objects.all())
             RequestConfig(request).configure(courses)
-            return render(request, 'courses/index.html', {'courses': courses})
+
+            noOfRounds = user.profile.get_no_of_rounds()
+            scorecards = user.scorecard_set.order_by('date_played')[0:4]
+
+            recent_scorecards = ScoreCardTableMini(scorecards)
+            RequestConfig(request).configure(recent_scorecards)
+
+            context = {'courses': courses, 
+                       'noOfRounds': noOfRounds,
+                       'recent_scorecards': recent_scorecards,
+                       }
+            return render(request, 'courses/index.html', context)
         # If something is not valid, post bound for with data and display errors
         else:
             context = {
@@ -61,7 +72,19 @@ def auth_user(request):
             # Redirect user to start page
             courses = CourseTable(Course.objects.all())
             RequestConfig(request).configure(courses)
-            return render(request, 'courses/index.html', {'courses': courses})
+
+            noOfRounds = user.profile.get_no_of_rounds()
+            scorecards = user.scorecard_set.order_by('date_played')
+            scorecards = scorecards[0:4]
+
+            recent_scorecards = ScoreCardTableMini(scorecards)
+            RequestConfig(request).configure(recent_scorecards)
+
+            context = {'courses': courses, 
+                       'noOfRounds': noOfRounds,
+                       'recent_scorecards': recent_scorecards,
+                       }
+            return render(request, 'courses/index.html', context)
         else:
             raise NotImplementedError
     else:
