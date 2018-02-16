@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^courseoverview/$', views.courseoverview, name='courseoverview'),
 
     # courses/javascript_test_page/
-    url(r'javascript_test_page', views.javascript_test_page, name='javascript_test_page')
+    url(r'^javascript_test_page/$', views.javascript_test_page, name='javascript-test-page'),
 
     ]
