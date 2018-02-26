@@ -27,7 +27,8 @@ def index(request):
         user = request.user
 
         noOfRounds = user.profile.get_no_of_rounds()
-        scorecards = user.scorecard_set.order_by('date_played')[0:4]
+        scorecards = user.scorecard_set.order_by('-date_played')[0:4]
+        most_played, times = user.profile.get_most_played_course()
 
         recent_scorecards = ScoreCardTableMini(scorecards)
         RequestConfig(request).configure(recent_scorecards)
@@ -35,6 +36,8 @@ def index(request):
         context = {'courses': courses, 
                    'noOfRounds': noOfRounds,
                    'recent_scorecards': recent_scorecards,
+                   'most_played': most_played,
+                   'times': times,
                    }
 
         return render(request, 'courses/index.html', context)
@@ -78,6 +81,7 @@ def coursedetails(request, pk):
     return render(request, 'courses/coursedetails.html', context)
 
 # When looking at coursedetails, user can add holes using this function. Checks if hole already exists so multiple holes doesnt get created
+# THIS FUNCTION IS VERY STUPID!
 def addhole(request, pk):
     if request.method == 'POST':
         course = Course.objects.get(id=pk)
@@ -136,5 +140,29 @@ def courseoverview(request):
     RequestConfig(request).configure(table)
     return render(request, 'courses/courseoverview.html', {'table': table})
     
+# Javascript test page render
 def javascript_test_page(request):
     return render(request, 'courses/Javascript_test/javascript_test_page.html')
+
+# Hole details
+def holedetails(request, pk):
+    hole = Hole.objects.get(id = pk)
+    course = Course.objects.get(course_name = hole.course)
+
+    if request.user.is_authenticated:
+        user = request.user
+        average_score = request.user.profile.get_hole_average(course, hole)
+
+        context = {
+        'hole': hole,
+        'course': course,
+        'average': average_score,
+            }
+
+        return render(request, 'courses/holedetails.html', context)
+
+    context = {
+        'hole': hole,
+        'course': course,
+        }
+    return render(request, 'courses/holedetails.html', context)
