@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
+
     {% extends 'courses/base.html' %}
-{% load render_table from django_tables2 %}
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -12,9 +12,41 @@
     
     {% block content %}
 
-	<h2>Latest scorecards:</h2>
+	<h2>Your scorecards:</h2>
 
-	{% render_table table %}
+    <div id="accordion">
+        {% for course in courses %}
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#{{ course.course_name }}" aria-expanded="true" aria-controls="collapseOne">
+                        {{ course.course_name }}
+                    </button>
+                </h5>
+            </div>
+
+            <div id="{{ course.course_name }}" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="row .fluid">
+                        {% for scorecard in scorecards %}
+                        {% if scorecard.course == course %}
+                        <div class="col-sm-3">
+                            <div class="card card-body" style="margin-bottom: 5px">
+                                <p>Round: {{ scorecard.round }}</p>
+                                <p>Score: {{ scorecard.total_score }}</p>
+                                <p>Date played: {{ scorecard.date_played }}</p>
+                                <input  class="btn btn-primary" type="button" value="View"/>
+                            </div>
+                        </div>
+
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 	
     {% endblock %}
 </body>
