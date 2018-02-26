@@ -173,6 +173,19 @@ def select_round(request, pk):
         error = 'You have to log in before creating a scorecard!'
         return render(request, 'scorecards/error.html', {'error': error})
 
+# SECTION FOR NEW IMPROVED SCORECARD RENDERING AND POSTING #
 
+# Handle course and round selection in one complete view
+def selection(request):
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            raise NotImplementedError('Not made this yet')
+        else:
+            courses = Course.objects.all()
+            rounds = Round.objects.all()
 
+            context = {
+                'rounds': rounds,
+                'courses': courses,
 
+                }
