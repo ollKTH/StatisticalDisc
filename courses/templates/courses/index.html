@@ -79,7 +79,8 @@
                     <div class="col">
                         <div class="card card-body">
                             <h3 class="card-title">Welcome {{ user }}!</h3>
-                            <p>You have played {{ noOfRounds }} rounds. Your most played course is ... at which you have played a total of x times. </p>
+                            <p>You have played {{ noOfRounds }} rounds. Your most played course is {{ most_played }} 
+                            at which you have played a total {{ times }} of times. </p>
                             <h5>Your latest rounds:</h5>
                             {% render_table recent_scorecards %}
                         </div>
@@ -105,8 +106,13 @@
                         <div class="card card-body" style="background-color: aquamarine; ">
                             <h6># TODO : </h6>
                             <ul>
-                                <li>Add statistics for course/rounds, played cards on that round/course and so on</li>
-                                <li>Average score on each hole object</li>
+                                <li>Add breakpoints on every column/card, so that it suits mobile</li>
+                                <li>More statistics for course/rounds, played cards on that round/course and so on</li>
+                                <li>Try out the "most played"-function</li>
+                                <li>Start looking into mobile rendering of scorecard creation</li>
+                                <li>Add link to sign up-page</li>
+                                <li>Add next hole/prev hole when vieweing holedetails for easier navigation</li>
+                                <li>Maybe redo the scorecard form, maybe one form then render new page and so on</li>
                             </ul>
                         </div>
                     </div>
