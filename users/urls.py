@@ -15,5 +15,9 @@ urlpatterns = [
     # users/auth_user_logout
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
+    #users/5/profile
+    url(r'^profile/$', views.profile_page, name='profile'),
+
+
 
     ]
