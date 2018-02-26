@@ -23,8 +23,11 @@ urlpatterns = [
     # courses/coursedelete/5
     url(r'^coursedetails/(?P<pk>\d+)/coursedelete/$', views.coursedelete.as_view(), name='coursedelete'),
 
-    # courses/coursedelete/5
+    # courses/courseoverview/$
     url(r'^courseoverview/$', views.courseoverview, name='courseoverview'),
+
+    #courses/holedetails/5
+    url(r'^holedetails/(?P<pk>\d+)/$', views.holedetails, name='holedetails'),
 
     # courses/javascript_test_page/
     url(r'^javascript_test_page/$', views.javascript_test_page, name='javascript-test-page'),
