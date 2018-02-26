@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db.models import Q
 import operator
 
 from scorecards.models import Scorecard, Score
@@ -89,6 +90,10 @@ class Profile(models.Model):
         times = statistics[max_course]
         return max_course, times
 
+    # Get friends of user
+    def friends(self):
+        return Friendship.objects.filter(Q(creator = self.user) | Q(friend = self.user)).all() # Get friendships where user is creator OR friend
+
 # USER LINKAGE FUNCTIONS #
 
 # Create profile object that is related to a created user object
@@ -102,3 +107,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
+# Friendship model to model the friendship of two users
+class Friendship(models.Model):
+    created = models.DateTimeField(auto_now_add = True, editable = False)
+    creator = models.ForeignKey(User, related_name='friendship_creator_set')
+    friend = models.ForeignKey(User, related_name='friend_set')
