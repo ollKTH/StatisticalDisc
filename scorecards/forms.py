@@ -6,4 +6,4 @@ from .models import Scorecard, Score
 from courses.models import Hole
 
 class ScoreForm(Form):
-    score = forms.IntegerField(min_value = 0)
+    score = forms.IntegerField(min_value = 1)
