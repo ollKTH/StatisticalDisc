@@ -3,6 +3,10 @@
     "",
     "\\courses",
     "\\courses\\templates",
+    "\\courses\\templates\\courses",
+    "\\scorecards",
+    "\\scorecards\\templates",
+    "\\scorecards\\templates\\scorecards",
     "\\users",
     "\\users\\templates",
     "\\users\\templates\\users"
