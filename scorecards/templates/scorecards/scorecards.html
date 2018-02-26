@@ -35,7 +35,7 @@
                                 <p>Round: {{ scorecard.round }}</p>
                                 <p>Score: {{ scorecard.total_score }}</p>
                                 <p>Date played: {{ scorecard.date_played }}</p>
-                                <input  class="btn btn-primary" type="button" value="View"/>
+                                <a href="{% url 'scorecards:scorecarddetails' pk=scorecard.id %}" class="btn btn-primary">View</a>
                             </div>
                         </div>
 
