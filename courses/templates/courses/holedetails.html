@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+
+    {% extends 'courses/base.html' %}
+
+    {% load static %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{ course.course_name }} details</title>
+
+    {% load render_table from django_tables2 %}
+
+</head>
+<body>
+
+    {% block content %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card card-body">
+                <h4 class="card-title">Hole {{ hole.hole_number }}, {{ course.course_name }}</h4>
+                <hr />
+                <p>Hole length: {{ hole.hole_length }}</p>
+                <p>Hole par: {{ hole.hole_par }}</p>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="card card-body">
+                <h3>Cool hole map!</h3>
+                <img src="{% static '/images/yato_error.jpg' %}" />
+            </div>
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-sm-4">
+            <div class="card card-body">
+                <h4>Your stats on this hole</h4>
+                Your average score: {{ average }}
+            </div>
+        </div>
+
+        {% endif %}
+    </div>
+        
+    {% endblock %}
+</body>
+</html>
