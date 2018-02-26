@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 {% extends 'courses/base.html' %}
 
@@ -10,6 +10,12 @@
 <body>
 
     {% block content %}
+
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
 
     <div class="row">
         <div class="col-4">
