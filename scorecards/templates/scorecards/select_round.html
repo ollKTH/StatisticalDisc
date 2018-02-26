@@ -21,7 +21,7 @@
     <div class="row">
         {% for round in rounds %}
         <!-- Print card for each round -->
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <form action="." method="post">
                 {% csrf_token %}
                 <div class="card card-body" id="round_card">
