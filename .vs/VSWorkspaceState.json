@@ -3,8 +3,10 @@
     "",
     "\\courses",
     "\\courses\\templates",
-    "\\courses\\templates\\courses"
+    "\\users",
+    "\\users\\templates",
+    "\\users\\templates\\users"
   ],
-  "SelectedNode": "\\courses\\templates\\courses\\index.html",
+  "SelectedNode": "\\users\\views.py",
   "PreviewInSolutionExplorer": false
 }
