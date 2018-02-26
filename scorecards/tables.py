@@ -11,7 +11,7 @@ class ScoreCardTable(tables.Table):
     class Meta:
         model = Scorecard
         template = 'django_tables2/bootstrap.html'
-        exclude = ('id')
+        exclude = ('id', 'user', 'noOfHoles')
 
 # Don't really know if used
 class ScoreTable(tables.Table):
