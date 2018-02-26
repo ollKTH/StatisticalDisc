@@ -33,7 +33,8 @@ def signup(request):
             RequestConfig(request).configure(courses)
 
             noOfRounds = user.profile.get_no_of_rounds()
-            scorecards = user.scorecard_set.order_by('date_played')[0:4]
+            scorecards = user.scorecard_set.order_by('-date_played')[0:4]
+            most_played, times = user.profile.get_most_played_course()
 
             recent_scorecards = ScoreCardTableMini(scorecards)
             RequestConfig(request).configure(recent_scorecards)
@@ -41,6 +42,8 @@ def signup(request):
             context = {'courses': courses, 
                        'noOfRounds': noOfRounds,
                        'recent_scorecards': recent_scorecards,
+                       'most_played': most_played,
+                       'times': times,
                        }
             return render(request, 'courses/index.html', context)
         # If something is not valid, post bound for with data and display errors
@@ -74,8 +77,8 @@ def auth_user(request):
             RequestConfig(request).configure(courses)
 
             noOfRounds = user.profile.get_no_of_rounds()
-            scorecards = user.scorecard_set.order_by('date_played')
-            scorecards = scorecards[0:4]
+            scorecards = user.scorecard_set.order_by('-date_played')[0:4]
+            most_played, times = user.profile.get_most_played_course()
 
             recent_scorecards = ScoreCardTableMini(scorecards)
             RequestConfig(request).configure(recent_scorecards)
@@ -83,9 +86,20 @@ def auth_user(request):
             context = {'courses': courses, 
                        'noOfRounds': noOfRounds,
                        'recent_scorecards': recent_scorecards,
+                       'most_played': most_played,
+                       'times': times,
                        }
             return render(request, 'courses/index.html', context)
+        # If user does not authenticate, redirect to sign up page
         else:
-            raise NotImplementedError
+            error = 'You do not seem to have an account yet, sign up here'
+            form = UserCreationForm()
+
+            context = {
+            'form': form,
+            'error': error,
+            }
+
+            return render(request, 'users/signup.html', context)
     else:
         raise NotImplementedError
