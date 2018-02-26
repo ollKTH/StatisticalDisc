@@ -21,9 +21,10 @@ from rounds.tables import RoundTable
 
 # Render list of scorecards
 def scorecards(request):
-    table = ScoreCardTable(Scorecard.objects.all())
-    RequestConfig(request).configure(table)
-    return render(request, 'scorecards/scorecards.html', {'table': table})
+    scorecards = Scorecard.objects.filter(user = request.user)
+    courses = Course.objects.all()
+
+    return render(request, 'scorecards/scorecards.html', {'scorecards': scorecards, 'courses': courses})
 
 # Details for a scorecard
 def scorecarddetails(request, pk):
@@ -98,7 +99,8 @@ def fill_scorecard(request):
                 user = request.user
 
             noOfRounds = user.profile.get_no_of_rounds()
-            scorecards = user.scorecard_set.order_by('date_played')[0:4]
+            scorecards = user.scorecard_set.order_by('-date_played')[0:4]
+            most_played, times = user.profile.get_most_played_course()
 
             recent_scorecards = ScoreCardTableMini(scorecards)
             RequestConfig(request).configure(recent_scorecards)
@@ -106,6 +108,8 @@ def fill_scorecard(request):
             context = {'courses': courses, 
                        'noOfRounds': noOfRounds,
                        'recent_scorecards': recent_scorecards,
+                       'most_played': most_played,
+                       'times': times,
                        }
             return render(request, 'courses/index.html', context)
     else:
