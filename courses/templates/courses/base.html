@@ -64,7 +64,7 @@
                 <form method="post" action="/../users/logout/">
                     {% csrf_token %}
 
-                    Logged in as: {{ user.username }}
+                    Logged in as: <a href="{% url 'users:profile' %}">{{ user.username }}</a>
                     <button type="submit" class="btn btn-primary btn-sm" style="background-color: black; padding-left: 10px;">Log out</button> <!-- This part needs fix! -->
                 </form>
             </div>
