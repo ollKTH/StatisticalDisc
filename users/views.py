@@ -103,3 +103,25 @@ def auth_user(request):
             return render(request, 'users/signup.html', context)
     else:
         raise NotImplementedError
+
+def profile_page(request):
+    if request.user.is_authenticated:
+        user = request.user
+        friends = user.profile.friends()
+
+        context = {
+            'user': user,
+            'friends': friends,
+
+            }
+        return render(request, 'users/profile.html', context)
+    else:
+        error = 'You do not seem to have an account yet, sign up here'
+        form = UserCreationForm()
+
+        context = {
+        'form': form,
+        'error': error,
+        }
+
+        return render(request, 'users/signup.html', context)
