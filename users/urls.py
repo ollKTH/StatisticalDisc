@@ -16,8 +16,12 @@ urlpatterns = [
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 
     #users/5/profile
-    url(r'^profile/$', views.profile_page, name='profile'),
+    url(r'^(?P<pk>\d+)/profile/$', views.profile_page, name='profile'),
 
+    # users/social
+    url(r'^social/$', views.social, name='social'),
 
+    # users/add_friend
+    url(r'^add_friend/$', views.add_friend, name='add_friend'),
 
     ]
