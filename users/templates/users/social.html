@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+{% extends 'courses/base.html' %}
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    {% block content %}
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card card-body">
+                <h4>Find a player</h4>
+
+                <form action="." method="get">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="search" name="search_input" placeholder="Search users..."/>
+                        <input type="submit" value="Search" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            {% if user_finds %}
+            <div class="card card-body">
+                <h4>Search results</h4>
+                
+                {% for user in user_finds %}
+                <p><a href="{% url 'users:profile' pk=user.id %}">{{ user }}</a></p>
+                {% endfor %}
+
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% endblock %}
+
+</body>
+</html>
