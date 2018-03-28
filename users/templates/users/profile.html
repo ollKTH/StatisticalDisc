@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 {% extends 'courses/base.html' %}
 
@@ -13,16 +13,26 @@
     
     <div class="row">
         <div class="col-sm-3">
-            <div class="card card-body">
-                <h5>Profile page for {{ user }}</h5>
+            <div class="row">
+                <div class="card card-body" style="margin-bottom: 10px">
+                    <h5>Profile page for {{ profile_user }}</h5>
+                    <hr />
+                    <h5>Menu</h5>
+                    <hr />
+                    <form method="post" action="{% url 'users:add_friend' %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ profile_user }}" name="friend" />
+                        <input class="btn btn-primary" type="submit" value="Add friend" />
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col-sm-3">
             <div class="card card-body">
                 {% if friends %}
-                    <p>You have friends!</p>
+                    <p>User has friends!</p>
                 {% else %}
-                    <p>You have no friends yet!</p>
+                    <p>Users has no friends yet!</p>
                 {% endif %}
             </div>
         </div>
