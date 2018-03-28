@@ -8,7 +8,7 @@ from django_tables2 import RequestConfig
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate, logout
 
-
+from .models import User
 from scorecards.models import Score, Scorecard
 from scorecards.forms import ScoreForm
 from courses.models import Course, Hole
@@ -104,13 +104,13 @@ def auth_user(request):
     else:
         raise NotImplementedError
 
-def profile_page(request):
+def profile_page(request, pk):
     if request.user.is_authenticated:
-        user = request.user
-        friends = user.profile.friends()
+        profile_user = User.objects.get(id = pk)
+        friends = profile_user.profile.friends()
 
         context = {
-            'user': user,
+            'profile_user': profile_user,
             'friends': friends,
 
             }
@@ -125,3 +125,19 @@ def profile_page(request):
         }
 
         return render(request, 'users/signup.html', context)
+
+def social(request):
+    if request.method == 'GET':
+        if request.GET.get('search_input') is not None:
+            search_val = request.GET.get('search_input')
+            users = User.objects.filter(username__contains = search_val)
+
+            return render(request, 'users/social.html', {'user_finds': users})
+        else:
+            return render(request, 'users/social.html')
+    else:
+        return render(request, 'users/social.html')
+
+def add_friend(request):
+    if request.method == 'POST':
+        raise NotImplementedError('Not done yet')
