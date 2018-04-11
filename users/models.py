@@ -110,5 +110,5 @@ def save_user_profile(sender, instance, **kwargs):
 # Friendship model to model the friendship of two users
 class Friendship(models.Model):
     created = models.DateTimeField(auto_now_add = True, editable = False)
-    creator = models.ForeignKey(User, related_name='friendship_creator_set')
-    friend = models.ForeignKey(User, related_name='friend_set')
+    creator = models.ForeignKey(User, related_name='friendship_creator_set', on_delete=models.CASCADE)
+    friend = models.ForeignKey(User, related_name='friend_set', on_delete=models.CASCADE)
